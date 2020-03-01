@@ -1,7 +1,6 @@
 from pydub import AudioSegment
 from pydub.playback import play
 import os
-import re
 
 
 
@@ -38,16 +37,18 @@ def add_audio_chunk(phn, chunk):
 
 
 
+# the durations in .phn are based on frames, but pydub works with miliseconds
+# in this case, TRAIN is a directory containing the corpus with both, audio and .phn files
 frame_rate = 16000
 directory = "TRAIN"
 
-# iterates over each audio file in corpus. It's a horrendous piece of code
+# iterates over each audio file in corpus. 
 # for different corpuses you will probably need to change the paths and cycles
 for subdir in os.listdir(directory):
-    for subsubdir in os.listdir(directory + '/' + subdir):
-        for elem in os.listdir(directory + '/' + subdir + '/' + subsubdir):
+    for subsubdir in os.listdir(os.path.join(directory, subdir)):
+        for elem in os.listdir(os.path.join(directory, subdir, subsubdir)):
             if elem.endswith(".wav"):
-                audio = AudioSegment.from_wav(directory + '/' + subdir + '/' + subsubdir + '/' + elem)
-                phn_file = open(directory + '/' + subdir + '/' + subsubdir + '/' + elem[:-4] + ".PHN", "r")
+                audio = AudioSegment.from_wav(os.path.join(directory, subdir, subsubdir, elem))
+                phn_file = open(os.path.join(directory, subdir, subsubdir, elem[:-3] + "PHN"))
                 split_by_ph(phn_file, audio)
 
