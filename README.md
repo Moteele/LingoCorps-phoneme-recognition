@@ -18,11 +18,11 @@ the script _timit_parser.py_ walks through the [TIMIT corpus](http://academictor
 _timit_parser_results.zip_ contains result output of the script above.\
 ### 5. ML moder training
 _train.py_ tries to do that. Uses _librosa_ and _keras_\
-There are different modes. Each mode teaches the model based by different metrics, just change the variable `mode` in the code. With very small amount of data, on four phonemes and ten epochs, the accuracy is as follows:
-0: 28 % (don't use this mode, it basically feeds the model the raw audio, i. g
-1: 68 %
-2: 50 %
-3: 68 %
+There are different modes. Each mode teaches the model based by different metrics, just change the variable `mode` in the code. With very small amount of data, on four phonemes and ten epochs, the accuracy is as follows:\
+0: 28 % (don't use this mode, it basically feeds the model the raw audio, i. g the amplitude over time\
+1: 68 %\
+2: 50 %\
+3: 68 %\
 
 
 ### Blind paths
