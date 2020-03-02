@@ -18,7 +18,7 @@ def get_session(gpu_fraction=0.8):
     return tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
 ktf.set_session(get_session())
 
-# number of classes, in our case distinct phonemes
+# number of classes, in our case distinct phonemes. This will probably need to be change for different corpora
 class_num = 60
 
 # mode of metrics fed to the model
@@ -28,7 +28,7 @@ class_num = 60
 # 3 for mffc
 mode = 1
 
-# number of epochs
+# number of epochs. Too much leads to overlearning
 epochs = 10
 
 train_X = []
@@ -45,6 +45,8 @@ test_y = []
 
 # crops the audio if its longer than i, else it padds it with zeros
 pad1d = lambda a, i: a[0: i] if a.shape[0] > i else np.hstack((a, np.zeros(i - a.shape[0])))
+# crops/padds the lenght (time) of the spectrum.the correct length depends on the SR, waw lenght
+# and short FT window length
 pad2d = lambda a, i: a[:, 0: i] if a.shape[1] > i else np.hstack((a, np.zeros((a.shape[0],i - a.shape[1]))))
 
 # the lib apparently accepts only numeral classes, so we map our phonemes to numbers
@@ -65,6 +67,9 @@ for d in os.listdir():
                 padded_x = pad1d(wav, 3000)
                 train_X.append(padded_x)
             if mode == 1:
+                # try changing the window length by setting n_fft parameter in the stft function
+                # see the documentation, for speech the suggested is 512 (but for different SR than we use)
+                # changing this will require changing the padding argument for the spectrum
                 spectrogram = np.abs(librosa.stft(wav))
                 padded_spectogram = pad2d(spectrogram, 32)
                 train_spectrograms.append(padded_spectogram)
@@ -87,6 +92,7 @@ for d in os.listdir():
 
 phoneme_n = 0
 # path to our test data
+# does almost the same as the for cycle above, but for test data
 TEST = 'test5'
 os.chdir('../' + TEST)
 for d in os.listdir():
@@ -191,6 +197,7 @@ model = Model(input=ip, output=op)
 model.summary()
 
 model.compile(loss='categorical_crossentropy',
+              # maybe try using different optimizer
               optimizer='adam',
               metrics=['acc'])
 
