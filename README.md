@@ -3,7 +3,7 @@ for LingoCorps
 
 ## Requirements
 ### 1. Get language corpus with transcript
-There is a collection of corpora available to EU students: https://www.clarin.eu/resource-families/spoken-corpora) \
+There is a collection of corpora available to EU students: https://www.clarin.eu/resource-families/spoken-corpora \
 [cs](https://lindat.mff.cuni.cz/repository/xmlui/handle/11372/LRT-916)
 ### 2. Converting the transcript into phonemes
 [phonemizer](https://github.com/bootphon/phonemizer)\
