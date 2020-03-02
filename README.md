@@ -6,7 +6,7 @@ for LingoCorps
 There is a collection of corpora available to EU students: https://www.clarin.eu/resource-families/spoken-corpora \
 [cs](https://lindat.mff.cuni.cz/repository/xmlui/handle/11372/LRT-916)
 ### 2. Converting the transcript into phonemes
-[phonemizer](https://github.com/bootphon/phonemizer)\
+[phonemizer](https://github.com/bootphon/phonemizer)\ - investigate the _espeak_ backend too, I think it's very useful.
 [from Wictionary](https://github.com/jojolebarjos/wiktionary-phoneme)
 ### 3. Do phoneme segmentation
 [Persephone](https://persephone.readthedocs.io/en/latest/index.html) - might be very useful, as it claims the initial quantity of phonemes-segmented audio is low.
@@ -18,7 +18,7 @@ the script _timit_parser.py_ walks through the [TIMIT corpus](http://academictor
 _timit_parser_results.zip_ contains result output of the script above.\
 ### 5. ML moder training
 _train.py_ tries to do that. Uses _librosa_ and _keras_\
-The basis of this algorithm is based on this [article](https://towardsdatascience.com/a-data-lakes-worth-of-audio-datasets-b45b88cd4ad), but significant changes were made.\
+The basis of this algorithm is based on this [article](https://towardsdatascience.com/speech-classification-using-neural-networks-the-basics-e5b08d6928b7), but significant changes were made.\
 There are different modes. Each mode teaches the model based by different metrics, just change the variable `mode` in the code. With very small amount of data, on four phonemes and ten epochs, the accuracy is as follows:\
 0: 28 % (don't use this mode, it basically feeds the model the raw audio, i. g the amplitude over time)\
 1: 68 %\
@@ -32,6 +32,9 @@ When run mode 1 on dataset of all phonemes (60 of them) for 25 epochs, the accur
 * Make a better selection of phonemes. Timit uses something around 60, which is way more than needed (current sets have around 40 for English). There are also phonemes which differ only in length and thats context dependent, therefore indistinguishible for the model.
 
 ### Blind paths
-_pyAudioAnalysis_ tool is not tht much customizable and doesn't acceps audio files as short as we need.
+_pyAudioAnalysis_ tool is not that much customizable and doesn't acceps audio files as short as we need.
 ### Notes
 Those people do something similar to what we do: https://easypronunciation.com/en/
+### References
+Garofolo, J. & Lamel, Lori & Fisher, W. & Fiscus, Jonathan & Pallett, D. & Dahlgren, N. & Zue, V.. (1992). TIMIT Acoustic-phonetic Continuous Speech Corpus. Linguistic Data Consortium.\
+https://towardsdatascience.com/speech-classification-using-neural-networks-the-basics-e5b08d6928b7 \
